@@ -9,20 +9,5 @@ function db_connection(){
         .catch((err) => console.log(err));
 }
 
-function write_class(name,sigle,link){
-    const classes = new Classes({
-        class_name:name,
-            class_sigle: sigle,
-            class_link: link
-    });
-    classes.save()
-        .then((result) => {
-            console.log(result)
-        })
-        .catch((err)=>{
-            console.log(err)
-        });
-}
 
-
-module.exports={db_connection,write_class};
+module.exports={db_connection};

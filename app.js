@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var poly_api = require('./utils/poly-api');
 var db = require('./utils/db');
+var writeclasses = require('./utils/db-writeclass');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -24,6 +25,7 @@ app.use('/users', usersRouter);
 
 //db//
 db.db_connection();
+writeclasses.get_classes();
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

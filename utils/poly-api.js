@@ -1,13 +1,14 @@
 const axios = require('axios').default;
 var cheerio = require("cheerio");
 
-const config = {
-    headers:{
-        'Access-Control-Allow-Origin': '*',
-    }
-}
 
-async function fetchHtml (url, config = null){
+
+async function fetchHtml (url){
+    const config = {
+        headers:{
+            'Access-Control-Allow-Origin': '*',
+        }
+    }
     try {
         const { data } = await axios.get(url, config);
         return data;
@@ -42,11 +43,10 @@ async function parse_data(html){
     return all_groupes;
 }
 async function get_class(url) {
-    console.log(url);
-    var html = await fetchHtml(url,config);
+    var html = await fetchHtml(url);
     const data = await parse_data(html);
     return data
 }
-module.exports={get_class}
+module.exports={get_class,fetchHtml}
 
 
