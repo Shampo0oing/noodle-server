@@ -41,15 +41,12 @@ async function parse_data(html){
     all_groupes.shift();
     return all_groupes;
 }
-
 async function get_class(url) {
     console.log(url);
     var html = await fetchHtml(url,config);
     const data = await parse_data(html);
     return data
 }
-
-
 module.exports={get_class}
 
 
