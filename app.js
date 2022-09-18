@@ -7,7 +7,8 @@ var poly_api = require("./utils/poly-api");
 var db = require("./utils/db");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-const writeclasses = require("./utils/db-writeclass");
+var cors = require("cors");
+const writeClasses = require("./utils/db-writeclass");
 
 var app = express();
 
@@ -18,13 +19,14 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 //db stuff
 db.db_connection();
-writeclasses.get_classes();
+// writeClasses.get_classes();
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

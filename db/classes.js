@@ -2,25 +2,25 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const classesSchema = new Schema({
-  class_name: {
+  name: {
     type: String,
     required: true,
   },
-  class_sigle: {
+  acronym: {
     type: String,
     required: true,
   },
-  class_link: {
+  link: {
     type: String,
     required: true,
   },
-  class_groupe: [
+  groups: [
     {
-      islab: Boolean,
-      ngroupe: String,
+      isLab: Boolean,
+      nGroup: String,
       day: String,
       time: String,
-      nclass: String,
+      nClass: String,
       teacher: String,
     },
   ],

@@ -26,14 +26,14 @@ async function parse_data(html) {
 
   rows.each((number, el) => {
     all_groupes.push({
-      islab: false,
-      ngroupe:
+      isLab: false,
+      nGroup:
         $("td:nth-of-type(1)", el).text() === " "
           ? all_groupes[number - 1]?.ngroupe
           : $("td:nth-of-type(1)", el).text(),
       day: $("td:nth-of-type(2)", el).text(),
       time: $("td:nth-of-type(3)", el).text(),
-      nclass: $("td:nth-of-type(4)", el).text(),
+      nClass: $("td:nth-of-type(4)", el).text(),
       teacher:
         $("td:nth-of-type(5)", el).text() === " "
           ? all_groupes[number - 1]?.teacher
@@ -46,14 +46,14 @@ async function parse_data(html) {
   rows = $(".horaire div:nth-of-type(2) tbody tr");
   rows.each((number, el) => {
     all_groupes.push({
-      islab: true,
-      ngroupe:
+      isLab: true,
+      nGroup:
         $("td:nth-of-type(1)", el).text() === " "
           ? all_groupes[number - 1]?.ngroupe
           : $("td:nth-of-type(1)", el).text(),
       day: $("td:nth-of-type(2)", el).text(),
       time: $("td:nth-of-type(3)", el).text(),
-      nclass: $("td:nth-of-type(4)", el).text(),
+      nClass: $("td:nth-of-type(4)", el).text(),
       teacher:
         $("td:nth-of-type(5)", el).text() === " "
           ? all_groupes[number - 1]?.teacher
