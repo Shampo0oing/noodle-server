@@ -8,6 +8,7 @@ var db = require("./utils/db");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var cors = require("cors");
+var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
 
 var app = express();
@@ -25,7 +26,9 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 //db stuff
-db.db_connection();
+// db.db_connection();
+moodle.main();
+
 // writeClasses.get_classes();
 
 // catch 404 and forward to error handler

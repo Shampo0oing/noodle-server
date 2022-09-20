@@ -13,9 +13,11 @@
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
     "mongoose": "^6.6.0",
+    "moodle-scrape": "^2.0.1",
     "morgan": "~1.9.1",
     "prettier": "^2.7.1",
     "pug": "2.0.0-beta11",
+    "undici": "^5.10.0",
     "xmldom": "^0.6.0",
     "xpath": "^0.0.32"
   },
