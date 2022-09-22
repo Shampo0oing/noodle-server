@@ -33,15 +33,36 @@ const moodle = new Schema({
   },
   iv: {
     type: String,
-    required: false,
+    required: true,
   },
   student_id: {
     type: String,
-    required: false,
+    required: true,
   },
+});
+
+const userdb = new Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+  },
+  linked_moodle:{
+    type: Boolean,
+    required: false
+  }
 });
 
 const Classes = mongoose.model("Classes", classesSchema);
 const Moodledb = mongoose.model("Moodle", moodle);
 
-module.exports = {Classes,Moodledb}
+module.exports = {Classes,Moodledb,Userdb}
