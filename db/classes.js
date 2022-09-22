@@ -26,5 +26,22 @@ const classesSchema = new Schema({
   ],
 });
 
+const moodle = new Schema({
+  key: {
+    type: String,
+    required: true,
+  },
+  iv: {
+    type: String,
+    required: false,
+  },
+  student_id: {
+    type: String,
+    required: false,
+  },
+});
+
 const Classes = mongoose.model("Classes", classesSchema);
-module.exports = Classes;
+const Moodledb = mongoose.model("Moodle", moodle);
+
+module.exports = {Classes,Moodledb}

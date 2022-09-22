@@ -11,6 +11,7 @@ var cors = require("cors");
 var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
 
+
 var app = express();
 
 // view engine setup
@@ -26,8 +27,8 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 
 //db stuff
-// db.db_connection();
-moodle.main();
+db.db_connection();
+
 
 // writeClasses.get_classes();
 

@@ -1,4 +1,4 @@
-const Classes = require("../db/classes");
+const {Classes} = require("../db/classes");
 const poly_api = require("./poly-api");
 const axios = require("axios").default;
 const cheerio = require("cheerio");
