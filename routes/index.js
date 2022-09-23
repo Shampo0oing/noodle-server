@@ -19,15 +19,15 @@ router.get("/classes", async function (req, res, next) {
 //Moodle connection , cookies and more
 function validateCookies(req, res, next) {
   const { cookies } = req;
-  if ("umo" in cookies) {
+  if ("noo" in cookies) {
     console.log("it exists");
-    if (cookies.umo === "12345") next();
+    if (cookies.noo === "12345") next();
     else res.status(403).send({ msg: "not logged in" });
   } else res.status(403).send({ msg: "not logged in" });
 }
 
-router.get("/protected", validateCookies, async function (req, res, next) {
-  res.status(200).json({ msg: "logged" });
+router.post("/moodle-signin", validateCookies, async function (req, res, next) {
+
 });
 
 //Moodle auth
@@ -52,7 +52,7 @@ async function moodleAuth(req, res, next) {
   } else res.json({ msg: "no auth" });
 }
 
-router.post("/moodle-signin", moodleAuth, async function (req, res, next) {
+router.post("/moodle-link", moodleAuth, async function (req, res, next) {
   const data = await moodleapi.encrypt(req.query.Mus, req.query.Mp);
   console.log(data.username, data.password);
 
