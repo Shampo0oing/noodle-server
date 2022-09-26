@@ -8,6 +8,7 @@
   "dependencies": {
     "axios": "^0.27.2",
     "bcrypt": "^5.0.1",
+    "body-parser": "^1.20.0",
     "cheerio": "^1.0.0-rc.12",
     "cookie-parser": "~1.4.4",
     "crypto-js": "^4.1.1",
@@ -20,6 +21,7 @@
     "prettier": "^2.7.1",
     "pug": "2.0.0-beta11",
     "undici": "^5.10.0",
+    "uuid": "^9.0.0",
     "xmldom": "^0.6.0",
     "xpath": "^0.0.32"
   },

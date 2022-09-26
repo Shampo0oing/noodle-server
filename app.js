@@ -10,8 +10,9 @@ var usersRouter = require("./routes/users");
 var cors = require("cors");
 var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
-const https = require('https');
-const fs = require('fs');
+const https = require("https");
+const fs = require("fs");
+var bodyParser = require("body-parser");
 
 var app = express();
 
@@ -26,22 +27,24 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //db stuff
 db.db_connection();
 
-
 //ssl
-app.use('/', (req, res, next)=>{
-  res.send('hello from ssl')
+app.use("/", (req, res, next) => {
+  res.send("hello from ssl");
 });
-const sslserver = https.createServer({
-  key: fs.readFileSync(path.join(__dirname, 'cert','key.pem')),
-  cert: fs.readFileSync(path.join(__dirname, 'cert','cert.pem')),
-},app);
+const sslserver = https.createServer(
+  {
+    key: fs.readFileSync(path.join(__dirname, "cert", "key.pem")),
+    cert: fs.readFileSync(path.join(__dirname, "cert", "cert.pem")),
+  },
+  app
+);
 
-sslserver.listen(3443,()=>console.log('secure server on port 3343'));
-
+sslserver.listen(3300, () => console.log("secure server on port 3300"));
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

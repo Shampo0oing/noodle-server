@@ -45,24 +45,29 @@ const userdb = new Schema({
   username: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   password: {
     type: String,
     required: true,
   },
-  linked_moodle:{
+  session: {
+    type: String,
+    required: true,
+  },
+  linked_moodle: {
     type: Boolean,
-    required: false
-  }
+    required: false,
+  },
 });
 
 const Classes = mongoose.model("Classes", classesSchema);
 const Moodledb = mongoose.model("Moodle", moodle);
+const Userdb = mongoose.model("Users", userdb);
 
-module.exports = {Classes,Moodledb,Userdb}
+module.exports = { Classes, Moodledb, Userdb };
