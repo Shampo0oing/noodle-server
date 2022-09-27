@@ -7,25 +7,27 @@ const uuid = require("uuid");
 const { Session, createSession } = require("../utils/user");
 
 /* GET users listing. */
-async function verifyCreateAccount(req, res, next) {
+router.post("/verifyUsername", async function (req, res, next) {
   const body = req.body;
-  if (Object.keys(body).length === 0) {
-    res.status(400).json({ msg: "empty form" });
-    return;
-  }
   if (await Userdb.exists({ username: body.username })) {
-    console.log("username exists");
-    res.status(400).json({ msg: "username already exists" });
-    return;
+    console.log("username exists 23045");
+    res.status(200).json({ msg: false });
+  } else {
+    res.status(200).json({ msg: true });
   }
+});
+
+router.post("/verifyEmail", async function (req, res, next) {
+  const body = req.body;
   if (await Userdb.exists({ email: body.email })) {
     console.log("email exists");
-    res.status(400).json({ msg: "email already exists" });
-    return;
+    res.status(200).json({ msg: false });
+  } else {
+    res.status(200).json({ msg: true });
   }
-  next();
-}
-router.post("/sign-up", verifyCreateAccount, async function (req, res, next) {
+});
+
+router.post("/sign-up", async function (req, res, next) {
   const body = req.body;
   console.log(body);
   const user = new Userdb(body);
