@@ -66,8 +66,26 @@ const userdb = new Schema({
   },
 });
 
+const tokendb = new Schema({
+  userId: {
+    type: Schema.Types.ObjectId,
+    required: true,
+    ref: "Users",
+  },
+  token: {
+    type: String,
+    required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    expires: 3600,
+  },
+});
+
 const Classes = mongoose.model("Classes", classesSchema);
 const Moodledb = mongoose.model("Moodle", moodle);
 const Userdb = mongoose.model("Users", userdb);
+const Token = mongoose.model("Tokens", tokendb);
 
-module.exports = { Classes, Moodledb, Userdb };
+module.exports = { Classes, Moodledb, Userdb, Token };

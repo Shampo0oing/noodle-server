@@ -7,6 +7,7 @@ var poly_api = require("./utils/poly-api");
 var db = require("./utils/db");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
+var resetRouter = require("./routes/resetPassword");
 var cors = require("cors");
 var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
@@ -27,6 +28,7 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/reset-pass", resetRouter);
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //db stuff

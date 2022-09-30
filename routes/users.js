@@ -44,19 +44,34 @@ router.post("/sign-up", async function (req, res, next) {
   res.status(200).json({ msg: "successful sign up" });
 });
 
+function validateEmail(email) {
+  const re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
 async function verifylogin(req, res, next) {
   const body = req.body;
-  const user = await Userdb.findOne({ email: body.email });
+  let user = false;
+
+  if (validateEmail(body.username)) {
+    user = await Userdb.findOne({ email: body.username });
+  } else {
+    user = await Userdb.findOne({ username: body.username });
+  }
+
   if (user) {
     // check user password with hashed password stored in the database
     const validPassword = await bcrypt.compare(body.password, user.password);
+    console.log(validPassword);
     if (validPassword) {
       next();
     } else {
-      res.status(400).json({ error: "Invalid Password" });
+      console.log("wrong");
+      res.status(200).json({ msg: 400 });
     }
   } else {
-    res.status(401).json({ error: "User does not exist" });
+    console.log("wrong");
+    res.status(200).json({ msg: 400 });
   }
 }
 
@@ -77,6 +92,8 @@ router.post("/login", verifylogin, async function (req, res, next) {
   res.cookie("NoodlesessionExpiry", session.expiresAt, {
     expires: session.expiresAt,
   });
+  console.log("success");
+  res.status(200).json({ msg: "success" });
 });
 async function verifycookies(req, res, next) {
   // if this request doesn't have any cookies, that means it isn't
