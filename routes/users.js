@@ -123,4 +123,22 @@ router.post("/welcome", verifycookies, async function (req, res, next) {
   console.log("logged in");
 });
 
+router.post("/googleLogin", async function (req, res, next) {
+  const body = req.body;
+  const user = new Userdb(body);
+  const session = await createSession(body);
+  user.session = session.token;
+  //saving to db
+  await user.update({ upsert: true });
+
+  //saving session to db
+  //saving cookie
+  res.cookie("Noodlesession", session.token, { expires: session.expiresAt });
+  res.cookie("NoodlesessionExpiry", session.expiresAt, {
+    expires: session.expiresAt,
+  });
+  console.log("success");
+  res.status(200).json({ msg: "success" });
+});
+
 module.exports = router;

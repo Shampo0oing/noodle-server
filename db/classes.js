@@ -54,11 +54,15 @@ const userdb = new Schema({
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   session: {
     type: String,
     required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: false,
   },
   linked_moodle: {
     type: Boolean,
