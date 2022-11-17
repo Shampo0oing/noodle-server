@@ -1,6 +1,8 @@
 const { Userdb } = require("../db/classes");
 const { createSession } = require("../utils/user");
 const bcrypt = require("bcrypt");
+const express = require("express");
+var router = express.Router();
 
 router.post("/changeUsername", async function (req, res, next) {
   const body = req.body;
@@ -44,3 +46,5 @@ router.post("/changePassword", async function (req, res, next) {
   return res.status(200).json({ status: 200 });
 });
 router.post("/changeImage", async function (req, res, next) {});
+
+module.exports = router;
