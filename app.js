@@ -9,6 +9,7 @@ var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var resetRouter = require("./routes/resetPassword");
 var settingsRouter = require("./routes/settings");
+var moodleRouter = require("./routes/moodle");
 var cors = require("cors");
 var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
@@ -30,7 +31,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/reset-pass", resetRouter);
-app.use("/settings", settingsRouter);
+app.use("/moodle", moodleRouter);
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //db stuff

@@ -76,12 +76,12 @@ async function decryption(info) {
   );
   return { username, password };
 }
-async function moodleLogin(info) {
+async function moodleLogin(user, pass) {
   const moodle = new Moodle(undici.fetch, url);
   console.time("-- login() time");
-  const success = await moodle.login(info.username, info.password, true);
+  const success = await moodle.login(user, pass, true);
   console.timeEnd("-- login() time");
-
+  // console.log(await getMoodle(moodle));
   if (!success) {
     return false;
   } else {
@@ -95,10 +95,7 @@ async function getMoodle(moodle) {
   return moodle;
 }
 
-async function main() {
-  // const encrypted = await encrypt("moayoa", "R665295v");
-  // console.log(encrypted);
-}
+async function main() {}
 module.exports = {
   moodleLogin,
   encrypt,
