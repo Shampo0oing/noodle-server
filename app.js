@@ -32,6 +32,7 @@ app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/reset-pass", resetRouter);
 app.use("/moodle", moodleRouter);
+app.use("/settings", settingsRouter);
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //db stuff
