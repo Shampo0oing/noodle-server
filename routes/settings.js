@@ -50,11 +50,17 @@ router.post("/changeImage", async function (req, res, next) {
   const body = req.body;
   const client = new ImgurClient({ clientId: process.env.IMGUR_ID });
   body.img = body.img.replace(/^data:image\/(png|jpg|jpeg);base64,/, "");
-  const { data } = await client.upload({
-    image: body.img,
-    title: "profilePicture",
-    type: "base64",
-  });
+
+  const { data } = await client
+    .upload({
+      image: body.img,
+      title: "profilePicture",
+      type: "base64",
+    })
+    .catch(function (reason) {
+      console.log(reason);
+    });
+  console.log(data);
   Userdb.findOneAndUpdate(
     { username: body.username },
     { imageUrl: data.link },

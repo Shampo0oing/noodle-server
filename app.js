@@ -15,7 +15,6 @@ var moodle = require("./utils/moodle-api");
 const writeClasses = require("./utils/db-writeclass");
 const https = require("https");
 const fs = require("fs");
-var bodyParser = require("body-parser");
 
 var app = express();
 
@@ -33,7 +32,6 @@ app.use("/users", usersRouter);
 app.use("/reset-pass", resetRouter);
 app.use("/moodle", moodleRouter);
 app.use("/settings", settingsRouter);
-app.use(bodyParser.urlencoded({ extended: false }));
 
 //db stuff
 db.db_connection();
