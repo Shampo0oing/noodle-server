@@ -5,19 +5,33 @@ var router = express.Router();
 
 //Moodle connection , cookies and more
 function validateCookies(req, res, next) {
-  const { cookies } = req;
-  if ("noo" in cookies) {
-    console.log("it exists");
-    if (cookies.noo === "12345") next();
-    else res.status(400).send({ msg: "not logged in" });
-  } else res.status(400).send({ msg: "not logged in" });
+  // if this request doesn't have any cookies, that means it isn't
+  // authenticated. Return an error code.
+  const { noo, dle } = req.cookies;
+  if (!req.cookies) {
+    res.status(401).end();
+  } else next();
 }
 
-router.post(
-  "/moodle-signin",
-  validateCookies,
-  async function (req, res, next) {}
-);
+router.post("/moodle-signin", async function (req, res, next) {
+  // const student_id = req.body.username;
+  const student_id = "mudyddd";
+
+  const key_db = await Moodledb.findOne({
+    student_id,
+  });
+  if (!key_db) {
+    return res.json({ status: 400, msg: "no account linked" });
+  }
+
+  const info = await moodleapi.getInfo(key_db.user, key_db.pass);
+  const moodle = await moodleapi.moodleLogin(
+    info.decryptedUser,
+    info.decryptedPassword
+  );
+  console.log(moodle);
+  res.json({ status: 200, moodle });
+});
 
 //Moodle auth
 async function moodleAuth(req, res, next) {
@@ -45,13 +59,13 @@ async function moodleAuth(req, res, next) {
 
 router.post("/moodle-link", moodleAuth, async function (req, res, next) {
   const data = await moodleapi.encrypt(req.body.username, req.body.password);
-  res.cookie("noo", data.username);
-  res.cookie("dle", data.password);
-  const key = data.key;
-  const iv = data.iv;
   const student_id = req.body.noodleUser;
-  console.log("saving info");
-  await new Moodledb({ key, iv, student_id }).save();
+  console.log(data);
+  await new Moodledb({
+    user: data.EncryptedUser,
+    pass: data.EncryptedPass,
+    student_id,
+  }).save();
   Userdb.findOneAndUpdate(
     { username: student_id },
     { linked_moodle: true },
@@ -79,16 +93,6 @@ router.post("/moodle-unlink", async function (req, res, next) {
     }
   );
   return res.status(200).json({ status: 200 });
-});
-router.post("/moodle-unlink", async function (req, res, next) {
-  Userdb.findOneAndUpdate(
-    { username: "Mudy" },
-    { linked_moodle: true },
-    function (err, doc) {
-      if (err)
-        return res.status(500).json({ error: "error in saving session" });
-    }
-  );
 });
 
 module.exports = router;

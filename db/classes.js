@@ -27,11 +27,11 @@ const classesSchema = new Schema({
 });
 
 const moodle = new Schema({
-  key: {
+  user: {
     type: String,
     required: true,
   },
-  iv: {
+  pass: {
     type: String,
     required: true,
   },

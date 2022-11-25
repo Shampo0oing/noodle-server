@@ -70,11 +70,11 @@ class Moodle {
     const $ = (0, cheerio_1.load)(body);
     try {
       // parse courses
-      this.courses = $("#main-header .visible1 > a")
-        .map((_, el) => {
+      this.courses = $("#course")
+        .each((i, el) => {
           return {
-            id: parseInt(el.attribs.href.split("?id=")[1]),
-            name: el.attribs.title,
+            id: parseInt(el.attribs["value"]),
+            name: $(el).text(),
             tasks: [],
           };
         })
@@ -85,31 +85,15 @@ class Moodle {
           return {
             id: parseInt(el.attribs["data-event-id"]),
             name: el.attribs["data-event-title"],
-            description: $($(".description-content").get(i)).text(),
             deadline: $(
               $(".description .row:nth-of-type(1) a:nth-of-type(1)").get(i)
             ).text(),
-            course:
-              $(
-                $(".description .mt-1:nth-of-type(4) .col-11 a").get(i)
-              ).text() === ""
-                ? $(
-                    $(".description .mt-1:nth-of-type(1) .col-11 a").get(i)
-                  ).text()
-                : $(
-                    $(".description .mt-1:nth-of-type(4) .col-11 a").get(i)
-                  ).text(),
+            course: $($(".description .row.mt-1 .col-11 > a").get(i)).text(),
           };
         })
         .toArray();
       // put the tasks in their corresponding courses
-      this.tasks.forEach((t) => {
-        var _a;
-        (_a = this.courses.find((c) => c.id === t.course.id)) === null ||
-        _a === void 0
-          ? void 0
-          : _a.tasks.push(t);
-      });
+
       // parse user
       this.user = {
         id: parseInt(
